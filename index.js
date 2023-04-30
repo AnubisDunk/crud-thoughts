@@ -22,7 +22,9 @@ let thoughts = [
         "id": "edd53782-b646-41d6-87fe-506719f80ced"
     },
 ]
-
+app.get('/', (req, res) => {
+    res.redirect('/thoughts');
+})
 app.get('/thoughts', (req, res) => {
     res.render('home', { thoughts });
 })
