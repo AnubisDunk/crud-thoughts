@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+    <h1>New</h1>
+    <form class="row g-3" action="/thoughts" method="post">
+        <div class="mb-3">
+            <label for="user" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="user" placeholder="Name">
+        </div>
+        <div class="mb-3">
+            <label for="text" class="form-label">Thought</label>
+            <textarea class="form-control" name="text" id="text" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+        </div>
+    </form>
+    <a href="/thoughts" class="btn btn-danger " tabindex="-1" role="button" aria-disabled="true">Back</a>
+    <%- include('partials/footer') %>

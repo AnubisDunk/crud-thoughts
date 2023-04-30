@@ -1,0 +1,58 @@
+<%- include('partials/head') %>
+    <h1>
+        <%= thought.id %>
+    </h1>
+    <p>
+        <%=thought.text %> - <b>
+                <%=thought.username %>
+            </b>
+    </p>
+    <p>
+        <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
+            aria-expanded="false" aria-controls="collapseWidthExample">
+            Edit
+        </button>
+    </p>
+    <div class="collapse " id="collapseWidthExample">
+        <div class="card card-body" style="width: 300px;">
+            <form class="row g-3" action="/thoughts/<%= thought.id %>/?_method=PATCH" method="post">
+                <div class="mb-3">
+                    <label for="text" class="form-label">Thought</label>
+                    <textarea class="form-control" name="text" id="text" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <a href="/thoughts" class="btn btn-primary " tabindex="-1" role="button" aria-disabled="true">Back</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Delete
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You are gonna delete this!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form action="/thoughts/<%= thought.id %>/?_method=DELETE" method="post">
+                        <button class="btn btn-danger" type="submit"> Delete</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/footer') %>

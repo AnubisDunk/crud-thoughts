@@ -1,0 +1,14 @@
+<%- include('partials/head') %>
+    <h1>Home</h1>
+    <ul>
+        <% for(let t of thoughts){ %>
+            <li>
+                <a href="/thoughts/<%= t.id %>"><%= t.text%> </a> - <b>
+                        <%= t.username %>
+                    </b>
+            </li>
+            <%} %>
+    </ul>
+    <a href="/thoughts/new" class="btn btn-success " tabindex="-1" role="button" aria-disabled="true">New</a>
+
+    <%- include('partials/footer') %>
