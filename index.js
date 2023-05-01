@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-//let thoughts = require('./thoughts.json')
 const fs = require('fs');
 const { v4: uuid } = require('uuid');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const { default: mongoose } = require('mongoose');
+const Thought = require('./models/thought')
 
 
 app.set('view engine', 'ejs');
@@ -15,17 +16,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
-let thoughts = [
-    {
-        "username": "Alex",
-        "text": "I love my significant one",
-        "id": "edd53782-b646-41d6-87fe-506719f80ced"
-    },
-]
+
+const db = 'mongodb+srv://anubisdark98:rQbnNoZU9ZoK1kSP@cluster0.yhhtoyn.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose
+    .connect(db)
+    .then((res) => console.log('Connected to DB'))
+    .catch((error) => console.log(error));
+
 app.get('/', (req, res) => {
     res.redirect('/thoughts');
 })
-app.get('/thoughts', (req, res) => {
+
+app.get('/thoughts', async (req, res) => {
+    const thoughts = await Thought.find({});
     res.render('home', { thoughts });
 })
 
@@ -33,31 +37,37 @@ app.get('/thoughts/new', (req, res) => {
     res.render('new');
 })
 
-app.post('/thoughts', (req, res) => {
-    const { username, text } = req.body;
-    thoughts.push({ username, text, id: uuid() });
-    res.redirect('/thoughts');
+app.post('/thoughts', async (req, res) => {
+    try {
+        const { username, text } = req.body;
+        const thought = new Thought({ username, text });
+        await thought.save();
+        console.log("Saved");
+        res.redirect('/thoughts');
+    }
+    catch(err){
+        res.send("err");
+    }
 });
 
-app.get('/thoughts/:id', (req, res) => {
+app.get('/thoughts/:id', async(req, res) => {
     const { id } = req.params;
-    const thought = thoughts.find(t => t.id === id);
-    res.render('details', { thought });
+    const thought = await Thought.findById(id);
+    res.render('details', {thought});
 
 });
 
-app.patch('/thoughts/:id', (req, res) => {
+app.patch('/thoughts/:id', async(req, res) => {
     const { id } = req.params;
     const newText = req.body.text;
-    const thought = thoughts.find(t => t.id === id);
-    thought.text = newText;
+    const thought = await Thought.findByIdAndUpdate(id,newText);
     console.log("Updated");
     res.redirect('/thoughts');
 });
 
-app.delete('/thoughts/:id', (req, res) => {
+app.delete('/thoughts/:id', async(req, res) => {
     const { id } = req.params;
-    thoughts = thoughts.filter(t => t.id !== id);
+    const thought = await Thought.findByIdAndDelete(id);
     console.log("Deleted");
     res.redirect('/thoughts');
 })
@@ -73,3 +83,5 @@ app.listen('3000', () => {
     console.log('Listening on port 3000');
 });
 
+
+//rQbnNoZU9ZoK1kSP
