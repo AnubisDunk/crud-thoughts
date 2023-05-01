@@ -5,10 +5,10 @@ const fs = require('fs');
 const methodOverride = require('method-override');
 const { default: mongoose } = require('mongoose');
 const Thought = require('./models/thought');
-require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config({ path: __dirname + '/.env' });
 
 
-app.set('view engine', 'ejs'); 
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,26 +46,26 @@ app.post('/thoughts', async (req, res) => {
         console.log("Saved");
         res.redirect('/thoughts');
     }
-    catch(err){
+    catch (err) {
         res.send("err");
     }
 });
 
-app.get('/thoughts/:id', async(req, res) => {
+app.get('/thoughts/:id', async (req, res) => {
     const { id } = req.params;
     const thought = await Thought.findById(id);
-    res.render('details', {thought});
+    res.render('details', { thought });
 
 });
 
-app.patch('/thoughts/:id', async(req, res) => {
+app.patch('/thoughts/:id', async (req, res) => {
     const { id } = req.params;
     const newText = req.body.text;
-    const thought = await Thought.findByIdAndUpdate(id,{text : newText});
+    const thought = await Thought.findByIdAndUpdate(id, { text: newText });
     res.redirect('/thoughts');
 });
 
-app.delete('/thoughts/:id', async(req, res) => {
+app.delete('/thoughts/:id', async (req, res) => {
     const { id } = req.params;
     const thought = await Thought.findByIdAndDelete(id);
     console.log("Deleted");
@@ -76,7 +76,7 @@ app.delete('/thoughts/:id', async(req, res) => {
 
 app.get('*', (req, res) => {
     const link = req.url;
-    res.render('notfound', { link }); 
+    res.render('notfound', { link });
 });
 
 app.listen('3000', () => {
