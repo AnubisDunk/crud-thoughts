@@ -2,13 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs');
-const { v4: uuid } = require('uuid');
 const methodOverride = require('method-override');
 const { default: mongoose } = require('mongoose');
-const Thought = require('./models/thought')
+const Thought = require('./models/thought');
+require('dotenv').config({path: __dirname + '/.env'});
 
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); 
 app.set('views', path.join(__dirname, '/views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,8 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
+const pass = process.env['DB_PASS'];
+console.log(pass);
 
-const db = 'mongodb+srv://anubisdark98:rQbnNoZU9ZoK1kSP@cluster0.yhhtoyn.mongodb.net/?retryWrites=true&w=majority';
+const db = `mongodb+srv://anubisdark98:${pass}@cluster0.yhhtoyn.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose
     .connect(db)
@@ -84,4 +86,3 @@ app.listen('3000', () => {
 });
 
 
-//rQbnNoZU9ZoK1kSP
