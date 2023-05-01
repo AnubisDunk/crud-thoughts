@@ -1,0 +1,4 @@
+.card-child .card:nth-child(2n){
+    background-color: papayawhip;
+    align-self: end;
+}

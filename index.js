@@ -61,8 +61,7 @@ app.get('/thoughts/:id', async(req, res) => {
 app.patch('/thoughts/:id', async(req, res) => {
     const { id } = req.params;
     const newText = req.body.text;
-    const thought = await Thought.findByIdAndUpdate(id,newText);
-    console.log("Updated");
+    const thought = await Thought.findByIdAndUpdate(id,{text : newText});
     res.redirect('/thoughts');
 });
 
@@ -77,7 +76,7 @@ app.delete('/thoughts/:id', async(req, res) => {
 
 app.get('*', (req, res) => {
     const link = req.url;
-    res.render('notfound', { link });
+    res.render('notfound', { link }); 
 });
 
 app.listen('3000', () => {

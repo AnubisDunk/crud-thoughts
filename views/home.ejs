@@ -1,14 +1,23 @@
 <%- include('partials/head') %>
-    <h1>Home</h1>
-    <ul>
+    <div class="d-flex m-2 flex-column align-items-start align-items-md-center flex-md-row card-child flex-wrap">
         <% for(let t of thoughts){ %>
-            <li>
-                <a href="/thoughts/<%= t.id %>"><%= t.text%> </a> - <b>
-                        <%= t.username %>
-                    </b>
-            </li>
-            <%} %>
-    </ul>
-    <a href="/thoughts/new" class="btn btn-success " tabindex="-1" role="button" aria-disabled="true">New</a>
+                <div class="card me-3 my-3 shadow-lg"  role="button" onclick="location.href='/thoughts/<%= t.id %>'">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p class="fs-5">
+                                <%= t.text%>
+                            </p>
+                            <footer class="blockquote-footer text-end">
+                                <%= t.username %> <cite title="Source Title">
+                                        <%= t.createdAt.toLocaleDateString() %>
+                                    </cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+        
+            <% } %>
+    </div>
+    <!-- <a href="/thoughts/new" class="btn btn-success " tabindex="-1" role="button" aria-disabled="true">New</a> -->
 
     <%- include('partials/footer') %>

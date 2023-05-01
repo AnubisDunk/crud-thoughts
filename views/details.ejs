@@ -1,25 +1,35 @@
 <%- include('partials/head') %>
-    <h1>
-        <%= thought.id %>
-    </h1>
-    <p>
-        <%=thought.text %> - <b>
-                <%=thought.username %>
-            </b>
-            <p><%= thought.createdAt.toLocaleDateString() %> </p>
-    </p>
-    <p>
+    <div class="card me-3 my-3 align-content-start shadow-lg" role="button"
+        onclick="location.href='/thoughts/<%= thought.id %>'">
+        <div class="card-header">
+            <%= thought.id%>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>
+                    <%= thought.text%>
+                </p>
+                <footer class="blockquote-footer text-end">
+                    <%= thought.username %> <cite title="Source Title">
+                            <%= thought.createdAt.toLocaleDateString() %>
+                        </cite>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+   
         <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
             aria-expanded="false" aria-controls="collapseWidthExample">
             Edit
         </button>
-    </p>
-    <div class="collapse " id="collapseWidthExample">
+    
+    <div class="collapse mb-3" id="collapseWidthExample">
         <div class="card card-body" style="width: 300px;">
             <form class="row g-3" action="/thoughts/<%= thought.id %>/?_method=PATCH" method="post">
                 <div class="mb-3">
                     <label for="text" class="form-label">Thought</label>
-                    <textarea class="form-control" name="text" id="text" rows="3" required></textarea>
+                    <textarea class="form-control" name="text" id="text" rows="3"
+                        required><%= thought.text %>></textarea>
                 </div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary mb-3">Submit</button>
@@ -51,7 +61,7 @@
                     <form action="/thoughts/<%= thought.id %>/?_method=DELETE" method="post">
                         <button class="btn btn-danger" type="submit"> Delete</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
