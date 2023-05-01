@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 
 const pass = process.env['DB_PASS'];
-console.log(pass);
 
 const db = `mongodb+srv://anubisdark98:${pass}@cluster0.yhhtoyn.mongodb.net/?retryWrites=true&w=majority`;
 

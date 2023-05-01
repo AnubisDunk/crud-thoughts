@@ -6,6 +6,7 @@
         <%=thought.text %> - <b>
                 <%=thought.username %>
             </b>
+            <p><%= thought.createdAt.toLocaleDateString() %> </p>
     </p>
     <p>
         <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
