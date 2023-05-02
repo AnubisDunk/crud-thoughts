@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const methodOverride = require('method-override');
 const { default: mongoose } = require('mongoose');
+const thoughtApiRoutes = require('./routes/thought-api-routes');
 const thoughtRoutes = require('./routes/thought-routes');
 
 require('dotenv').config({ path: __dirname + '/.env' });
@@ -17,6 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(thoughtRoutes);
+app.use(thoughtApiRoutes);
+
+app.use((req, res) => {
+    const link = req.url;
+    res.status(404).render('notfound', { link });
+})
 
 const pass = process.env['DB_PASS'];
 

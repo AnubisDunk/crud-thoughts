@@ -1,5 +1,5 @@
 const express = require('express');
-const { getThoughts, postThought, getThought, updateThought, deleteThought, show404, newThought } = require('../controllers/thought-controller');
+const { getThoughts, postThought, getThought, updateThought, deleteThought, newThought } = require('../controllers/thought-controller');
 
 const router = express.Router();
 
@@ -9,6 +9,5 @@ router.post('/thoughts', postThought);
 router.get('/thoughts/:id', getThought);
 router.patch('/thoughts/:id', updateThought);
 router.delete('/thoughts/:id', deleteThought);
-router.get('*', show404);
 
 module.exports = router;

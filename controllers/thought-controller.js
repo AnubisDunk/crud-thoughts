@@ -40,10 +40,6 @@ const deleteThought = async (req, res) => {
     res.redirect('/');
 }
 
-const show404 = (req, res) => {
-    const link = req.url;
-    res.render('notfound', { link });
-}
 
 module.exports = {
     getThoughts,
@@ -52,6 +48,4 @@ module.exports = {
     getThought,
     updateThought,
     deleteThought,
-    show404,
-
 };
