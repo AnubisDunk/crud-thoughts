@@ -1,7 +1,7 @@
 const Thought = require('../models/thought');
 
 const getThoughts = async (req, res) => {
-    const thoughts = await Thought.find({});
+    const thoughts = await Thought.find({}).sort({createdAt:-1});
     res.render('home', { thoughts });
 };
 const postThought = async (req, res) => {

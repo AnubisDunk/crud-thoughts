@@ -24,8 +24,6 @@ app.use((req, res) => {
     const link = req.url;
     res.status(404).render('notfound', { link });
 })
-
-
 const db = process.env['MONGO_URL'];
 
 mongoose
@@ -33,10 +31,6 @@ mongoose
     .then((res) => console.log('Connected to DB'))
     .catch((error) => console.log(error));
 
-
-
 app.listen('3000', () => {
     console.log('Listening on port 3000');
 });
-
-

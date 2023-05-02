@@ -1,23 +1,29 @@
 <%- include('partials/head') %>
     <div class="card me-3 my-3 align-content-start shadow-lg" role="button"
         onclick="location.href='/thoughts/<%= thought.id %>'">
-        <div class="card-header">
-            <%= thought.id%>
+        <div class="card-header text-end">
+            id: <%= thought.id%>
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <p>
+                <p class="fs-2">
                     <%= thought.text%>
                 </p>
-                <footer class="blockquote-footer text-end">
-                    <%= thought.username %> <cite title="Source Title">
-                            <%= thought.createdAt.toLocaleDateString() %>
-                        </cite>
+                <footer class="blockquote-footer">
+                    <%= thought.username %> <cite class="text-end" title="Source Title"> <br>
+                    </cite>
+                    <div class="fst-italic text-end">
+                        <% if (thought.createdAt.toString() != thought.updatedAt.toString()) { %>
+                            Modified: <%= thought.updatedAt.toLocaleString('lv-LV') %>  <br>
+                         <% } %>
+                         Created: <%= thought.createdAt.toLocaleString('lv-LV') %>
+                    </div>
+                      
                 </footer>
             </blockquote>
         </div>
     </div>
-   
+    
         <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
             aria-expanded="false" aria-controls="collapseWidthExample">
             Edit
