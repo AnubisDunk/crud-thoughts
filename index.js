@@ -25,9 +25,8 @@ app.use((req, res) => {
     res.status(404).render('notfound', { link });
 })
 
-const pass = process.env['DB_PASS'];
 
-const db = `mongodb+srv://anubisdark98:${pass}@cluster0.yhhtoyn.mongodb.net/?retryWrites=true&w=majority`;
+const db = process.env['MONGO_URL'];
 
 mongoose
     .connect(db)
